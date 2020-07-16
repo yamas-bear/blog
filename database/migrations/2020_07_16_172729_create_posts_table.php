@@ -14,7 +14,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id'); //外部キー（他のテーブルのidを参照する）
             $table->string('title');
             $table->string('body');
             $table->foreign('user_id')->references('id')->on('users'); //usersテーブルのidに対応してuser_idが外部キーとなる
