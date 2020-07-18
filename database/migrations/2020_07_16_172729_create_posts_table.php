@@ -15,6 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id'); //外部キー（他のテーブルのidを参照する）
+            $table->increments('id');
             $table->string('title');
             $table->string('body');
             $table->timestamp('updated_at')->nullable();

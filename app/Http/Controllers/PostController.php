@@ -21,6 +21,12 @@ class PostController extends Controller
         return view('posts.create');
     }
 
+    public function show($id)
+    {
+        $post = Post::find($id); //Postモデルから$idと一致するものを見つけてくださいということ
+        return view('posts.show', compact('post'));
+    }
+
     public function store(PostRequest $request)
     {
         $post = new Post; //インスタンスの作成
@@ -30,5 +36,11 @@ class PostController extends Controller
 
         $post->save(); //インスタンスは保存しないといけない
         return redirect()->route('posts.index');
+    }
+
+    public function edit($id)
+    {
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 }
