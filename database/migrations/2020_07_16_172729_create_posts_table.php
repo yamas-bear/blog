@@ -17,6 +17,8 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('user_id'); //外部キー（他のテーブルのidを参照する）
             $table->string('title');
             $table->string('body');
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users'); //usersテーブルのidに対応してuser_idが外部キーとなる
         });
     }
