@@ -30,7 +30,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $post = new Post; //インスタンスの作成
-        $post->title = $request->title;
+        $post->title = $request->title; //プロパティの設定
         $post->body = $request->body;
         $post->user_id = Auth::id();
 
@@ -42,5 +42,17 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         return view('posts.edit', compact('post'));
+    }
+
+    public function update(PostRequest $request, $id) //PostRequestを通すことでバリデーションを行っている
+    {
+        $post = Post::find($id); //idを用いて更新したいPostを探す
+
+        $post->title    = $request->title;
+        $post->body     = $request->body;
+
+        $post->save();
+
+        return view('posts.show', compact('post'));
     }
 }
