@@ -41,6 +41,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        if (Auth::id() !== $post->user_id) { //投稿のuser_idとログインしているユーザーのidが一致していないときはエラー画面を表示する
+            return abort(404);
+        }
         return view('posts.edit', compact('post'));
     }
 
@@ -54,5 +57,18 @@ class PostController extends Controller
         $post->save();
 
         return view('posts.show', compact('post'));
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::find($id);
+
+        if (Auth::id() !== $post->user_id) { //投稿のuser_idとログインしているユーザーのidが一致していないときはエラー画面を表示する
+            return abort(404);
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index');
     }
 }
