@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
+use App\Comment;
 use Auth;
 
 class PostController extends Controller
@@ -24,6 +25,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id); //Postモデルから$idと一致するものを見つけてくださいということ
+        $comment = Comment::where('post_id', $id)->get();
         return view('posts.show', compact('post'));
     }
 
